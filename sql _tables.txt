@@ -1,0 +1,36 @@
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    dob DATE
+);
+
+CREATE TABLE books (
+    isbn VARCHAR(13) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    availability BOOLEAN DEFAULT 1,
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+);
+
+CREATE TABLE authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(255) NOT NULL,
+    biography TEXT
+);
+
+CREATE TABLE genres (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    genre_name VARCHAR(50),
+    genre_details VARCHAR(50)
+);
+
+CREATE TABLE borrowed_books (
+    borrow_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    borrow_date DATE NOT NULL,
+    return_date DATE,
+    isbn VARCHAR(13),
+    FOREIGN KEY (isbn) REFERENCES books(isbn),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
